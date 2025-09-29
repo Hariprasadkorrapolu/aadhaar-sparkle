@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, HelpCircle, CheckCircle, Phone } from "lucide-react";
+import { Home, HelpCircle, CheckCircle, Phone, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navigation = () => {
@@ -8,6 +8,11 @@ const Navigation = () => {
       to: "/",
       icon: Home,
       label: "Home",
+    },
+    {
+      to: "/complete-guide",
+      icon: BookOpen,
+      label: "Complete Guide",
     },
     {
       to: "/quiz",

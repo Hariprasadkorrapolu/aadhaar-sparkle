@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import DBTStatus from "./pages/DBTStatus";
 import Helpline from "./pages/Helpline";
+import CompleteGuide from "./pages/CompleteGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Navigation />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/complete-guide" element={<CompleteGuide />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/dbt-status" element={<DBTStatus />} />
             <Route path="/helpline" element={<Helpline />} />
