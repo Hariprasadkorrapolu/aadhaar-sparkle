@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import FlashCard from "@/components/FlashCard";
-import { CheckCircle, XCircle, RotateCcw, PlayCircle, Trophy, Star, Target } from "lucide-react";
+import { CheckCircle, XCircle, RotateCcw, PlayCircle, Trophy, Star, Target, BookOpen, Video, Building2, Monitor, Smartphone, ArrowLeft } from "lucide-react";
 
 interface Question {
   id: number;
@@ -111,6 +111,7 @@ const questions: Question[] = [
 ];
 
 const Quiz = () => {
+  const [mode, setMode] = useState<'selection' | 'quiz' | 'videos'>('selection');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -165,6 +166,11 @@ const Quiz = () => {
     setStreakCount(0);
     setMaxStreak(0);
     setWatchedVideo(false);
+    setMode('quiz');
+  };
+  
+  const backToSelection = () => {
+    setMode('selection');
   };
 
   const getScoreMessage = (score: number) => {
@@ -176,6 +182,239 @@ const Quiz = () => {
     if (percentage >= 50) return "📚 Keep learning! You're on the right track!";
     return "💪 Don't give up! Review the guide and try again!";
   };
+
+  // Mode Selection Screen
+  if (mode === 'selection') {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold mb-4 text-glow">📚 Learning Center</h1>
+            <p className="text-lg text-muted-foreground">Choose how you want to learn about Aadhaar DBT</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Quiz Option */}
+            <FlashCard variant="gradient" className="cursor-pointer hover:scale-105 transition-transform">
+              <div className="text-center p-6">
+                <div className="mb-6">
+                  <BookOpen className="w-20 h-20 mx-auto text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold mb-4">Interactive Quiz</h2>
+                <p className="text-muted-foreground mb-6">
+                  Test your knowledge with 8 questions about Aadhaar and DBT. Track your score, streaks, and achievements!
+                </p>
+                <ul className="text-sm text-left space-y-2 mb-6">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    8 Multiple Choice Questions
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Instant Feedback & Explanations
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Performance Analytics
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Achievement Badges
+                  </li>
+                </ul>
+                <Button 
+                  size="lg" 
+                  className="w-full btn-flash"
+                  onClick={() => setMode('quiz')}
+                >
+                  <PlayCircle className="w-5 h-5 mr-2" />
+                  Start Quiz
+                </Button>
+              </div>
+            </FlashCard>
+
+            {/* Video Tutorials Option */}
+            <FlashCard variant="accent" className="cursor-pointer hover:scale-105 transition-transform">
+              <div className="text-center p-6">
+                <div className="mb-6">
+                  <Video className="w-20 h-20 mx-auto text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold mb-4">Video Tutorials</h2>
+                <p className="text-muted-foreground mb-6">
+                  Watch step-by-step video guides on how to seed your Aadhaar with your bank account.
+                </p>
+                <ul className="text-sm text-left space-y-2 mb-6">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Bank Branch Visit Guide
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Online Banking Tutorial
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Mobile Banking Method
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-success" />
+                    Real-life Demonstrations
+                  </li>
+                </ul>
+                <Button 
+                  size="lg" 
+                  className="w-full btn-flash"
+                  onClick={() => setMode('videos')}
+                >
+                  <Video className="w-5 h-5 mr-2" />
+                  Watch Videos
+                </Button>
+              </div>
+            </FlashCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Video Tutorials Screen
+  if (mode === 'videos') {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-6">
+            <Button 
+              variant="ghost" 
+              onClick={backToSelection}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Learning Center
+            </Button>
+            <h1 className="text-4xl font-bold mb-4 text-glow">📹 Video Tutorials</h1>
+            <p className="text-lg text-muted-foreground">
+              Watch these comprehensive guides to learn how to seed your Aadhaar with your bank account
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* Bank Branch Visit Video */}
+            <FlashCard variant="gradient">
+              <div className="flex items-center mb-4">
+                <Building2 className="w-8 h-8 mr-3 text-primary" />
+                <div>
+                  <h2 className="text-2xl font-bold">Method 1: Bank Branch Visit</h2>
+                  <p className="text-sm text-muted-foreground">Traditional and most reliable method</p>
+                </div>
+              </div>
+              <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/dXhLG49CbVI?si=exCf-WdGwsh2r-Ph" 
+                  title="Bank Branch Visit Tutorial" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="mt-4 p-4 bg-muted rounded-lg">
+                <h3 className="font-semibold mb-2">What you'll learn:</h3>
+                <ul className="text-sm space-y-1 text-muted-foreground">
+                  <li>• Required documents to bring</li>
+                  <li>• Step-by-step process at the branch</li>
+                  <li>• Common mistakes to avoid</li>
+                  <li>• Expected processing time</li>
+                </ul>
+              </div>
+            </FlashCard>
+
+            {/* Online Banking Video */}
+            <FlashCard variant="accent">
+              <div className="flex items-center mb-4">
+                <Monitor className="w-8 h-8 mr-3 text-primary" />
+                <div>
+                  <h2 className="text-2xl font-bold">Method 2: Online Banking</h2>
+                  <p className="text-sm text-muted-foreground">Convenient method from your computer</p>
+                </div>
+              </div>
+              <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/6b8-M79vnnI?si=Z0s9PX-xfOUubIIQ" 
+                  title="Online Banking Tutorial" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="mt-4 p-4 bg-muted rounded-lg">
+                <h3 className="font-semibold mb-2">What you'll learn:</h3>
+                <ul className="text-sm space-y-1 text-muted-foreground">
+                  <li>• Logging into your net banking account</li>
+                  <li>• Finding the Aadhaar seeding option</li>
+                  <li>• Filling the online form correctly</li>
+                  <li>• Verifying successful submission</li>
+                </ul>
+              </div>
+            </FlashCard>
+
+            {/* Mobile Banking Video */}
+            <FlashCard variant="success">
+              <div className="flex items-center mb-4">
+                <Smartphone className="w-8 h-8 mr-3 text-primary" />
+                <div>
+                  <h2 className="text-2xl font-bold">Method 3: Mobile Banking</h2>
+                  <p className="text-sm text-muted-foreground">Easiest method using your smartphone</p>
+                </div>
+              </div>
+              <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/86aekr_GbTU?si=Jg3sDP8xUWwtkcz7" 
+                  title="Mobile Banking Tutorial" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="mt-4 p-4 bg-muted rounded-lg">
+                <h3 className="font-semibold mb-2">What you'll learn:</h3>
+                <ul className="text-sm space-y-1 text-muted-foreground">
+                  <li>• Opening your bank's mobile app</li>
+                  <li>• Navigating to profile/services section</li>
+                  <li>• Updating Aadhaar details on mobile</li>
+                  <li>• Instant confirmation process</li>
+                </ul>
+              </div>
+            </FlashCard>
+          </div>
+
+          <div className="mt-8 text-center">
+            <FlashCard variant="gradient" className="inline-block">
+              <p className="text-lg font-semibold mb-4">Ready to test your knowledge?</p>
+              <Button 
+                size="lg" 
+                className="btn-flash"
+                onClick={() => setMode('quiz')}
+              >
+                <BookOpen className="w-5 h-5 mr-2" />
+                Take the Quiz Now
+              </Button>
+            </FlashCard>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (quizCompleted) {
     const perfectScore = score === questions.length;
@@ -270,7 +509,16 @@ const Quiz = () => {
           </FlashCard>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
+            <Button
+              onClick={backToSelection}
+              variant="outline"
+              size="lg"
+              className="btn-flash"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
             <Button
               onClick={restartQuiz}
               variant="outline"
@@ -278,7 +526,7 @@ const Quiz = () => {
               className="btn-flash"
             >
               <RotateCcw className="w-4 h-4 mr-2" />
-              Retake Quiz
+              Retake
             </Button>
             <Button 
               size="lg" 
@@ -286,7 +534,7 @@ const Quiz = () => {
               onClick={() => window.location.href = '/dbt-status'}
             >
               <CheckCircle className="w-4 h-4 mr-2" />
-              Check My Status
+              Check Status
             </Button>
           </div>
 
@@ -317,6 +565,16 @@ const Quiz = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
+        {/* Back Button */}
+        <Button 
+          variant="ghost" 
+          onClick={backToSelection}
+          className="mb-6"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Learning Center
+        </Button>
+
         {/* Game Stats Header */}
         <div className="grid grid-cols-4 gap-3 mb-8">
           <FlashCard className="text-center p-3">
