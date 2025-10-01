@@ -8,21 +8,11 @@ import {
   CheckCircle, 
   FileText, 
   CreditCard, 
-  Phone,
-  Clock,
   AlertCircle,
-  Video,
-  PlayCircle,
   Download
 } from "lucide-react";
 
 const CompleteGuide = () => {
-  const [activeMethod, setActiveMethod] = useState<string>("branch");
-  const [watchedVideos, setWatchedVideos] = useState<Set<string>>(new Set());
-
-  const markVideoWatched = (videoId: string) => {
-    setWatchedVideos(prev => new Set([...prev, videoId]));
-  };
 
   const methods = {
     branch: {
@@ -78,12 +68,6 @@ const CompleteGuide = () => {
           tip: "Keep the receipt safe - you'll need it for follow-up"
         }
       ],
-      video: {
-        id: "branch-guide",
-        title: "Branch Visit Complete Guide",
-        duration: "5:30",
-        thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
-      }
     },
     online: {
       title: "Online Banking",
@@ -138,12 +122,6 @@ const CompleteGuide = () => {
           tip: "Process is completed immediately - no need to visit branch"
         }
       ],
-      video: {
-        id: "online-guide",
-        title: "Online Banking Aadhaar Linking",
-        duration: "4:15",
-        thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
-      }
     },
     mobile: {
       title: "Mobile Banking",
@@ -197,12 +175,6 @@ const CompleteGuide = () => {
           tip: "Screenshot the confirmation page for your records"
         }
       ],
-      video: {
-        id: "mobile-guide",
-        title: "Mobile Banking Aadhaar Seeding",
-        duration: "3:45",
-        thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
-      }
     }
   };
 
@@ -252,76 +224,36 @@ const CompleteGuide = () => {
         </div>
       </section>
 
-      {/* Method Selection */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4">Choose Your Preferred Method</h2>
-          <p className="text-muted-foreground">Select the method that's most convenient for you</p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-          {Object.entries(methods).map(([key, method]) => (
-            <FlashCard 
-              key={key}
-              variant={activeMethod === key ? "success" : "default"}
-              className={`cursor-pointer transition-all duration-300 ${
-                activeMethod === key ? "ring-2 ring-primary" : ""
-              }`}
-              onClick={() => setActiveMethod(key)}
-            >
-              <method.icon className="w-12 h-12 mb-4 mx-auto" />
-              <h3 className="text-xl font-semibold mb-2">{method.title}</h3>
-              <div className="flex justify-between text-sm text-muted-foreground mb-2">
-                <span>Difficulty: {method.difficulty}</span>
-                <span>Time: {method.time}</span>
-              </div>
-            </FlashCard>
-          ))}
-        </div>
-      </section>
-
-      {/* Detailed Steps */}
+      {/* All Methods Combined */}
       <section className="py-8 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Video Tutorial */}
-            <FlashCard variant="gradient" className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold mb-1">Video Tutorial</h3>
-                  <p className="opacity-90">{methods[activeMethod as keyof typeof methods].video.title}</p>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{methods[activeMethod as keyof typeof methods].video.duration}</span>
-                </div>
-              </div>
-              
-              <div className="relative bg-black/20 rounded-lg overflow-hidden mb-4">
-                <div className="aspect-video flex items-center justify-center">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="bg-white/20 border-white/30 text-white hover:bg-white/30"
-                    onClick={() => markVideoWatched(methods[activeMethod as keyof typeof methods].video.id)}
-                  >
-                    <PlayCircle className="w-6 h-6 mr-2" />
-                    Watch Tutorial
-                  </Button>
-                </div>
-              </div>
-              
-              {watchedVideos.has(methods[activeMethod as keyof typeof methods].video.id) && (
-                <div className="flex items-center text-sm opacity-90">
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Video completed! Follow the steps below.
-                </div>
-              )}
-            </FlashCard>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Complete Aadhaar Seeding Guide</h2>
+              <p className="text-muted-foreground">Follow these step-by-step instructions for all available methods</p>
+            </div>
 
-            {/* Step by Step Guide */}
-            <div className="space-y-6">
-              {methods[activeMethod as keyof typeof methods].steps.map((step, index) => (
+            {/* All Methods Steps */}
+            {Object.entries(methods).map(([methodKey, method]) => (
+              <div key={methodKey} className="mb-16">
+                <FlashCard variant="gradient" className="mb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <method.icon className="w-8 h-8 mr-3" />
+                      <div>
+                        <h3 className="text-2xl font-bold">{method.title}</h3>
+                        <div className="flex gap-4 text-sm opacity-90 mt-1">
+                          <span>Difficulty: {method.difficulty}</span>
+                          <span>Time: {method.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </FlashCard>
+
+                <div className="space-y-6">
+                  {method.steps.map((step, index) => (
                 <FlashCard key={index} delay={index * 100}>
                   <div className="flex items-start mb-4">
                     <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 flex-shrink-0">
@@ -351,8 +283,10 @@ const CompleteGuide = () => {
                     </div>
                   </div>
                 </FlashCard>
-              ))}
-            </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -399,6 +333,7 @@ const CompleteGuide = () => {
               size="lg"
               variant="outline"
               className="bg-white/20 border-white/30 text-white hover:bg-white/30"
+              onClick={() => window.open('/Aadhaar-seeding-process.pdf', '_blank')}
             >
               <Download className="w-4 h-4 mr-2" />
               Download PDF Guide
