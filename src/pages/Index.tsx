@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import FlashCard from "@/components/FlashCard";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   ArrowRight, 
   CheckCircle, 
@@ -46,6 +47,7 @@ const successStories = [
 
 const Index = () => {
   const [currentStory, setCurrentStory] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,22 +64,21 @@ const Index = () => {
         <div className="relative container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-flash-in">
-              Unlock Your <span className="text-glow">Government Benefits</span>
+              {t.hero.title} <span className="text-glow">{t.hero.titleHighlight}</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 opacity-90 animate-flash-in" style={{ animationDelay: "200ms" }}>
-              Learn the difference between Aadhaar-linked and DBT-enabled accounts. 
-              Get direct access to scholarships, subsidies, and more!
+              {t.hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-flash-in" style={{ animationDelay: "400ms" }}>
               <Link to="/quiz">
                 <Button size="lg" variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30 btn-flash">
-                  Take the Quiz
+                  {t.hero.takeQuiz}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
               <Link to="/dbt-status">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 btn-flash">
-                  Check DBT Status
+                  {t.hero.checkStatus}
                 </Button>
               </Link>
             </div>
@@ -88,32 +89,32 @@ const Index = () => {
       {/* Comparison Section */}
       <section className="py-16 container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Normal vs DBT-Enabled Accounts</h2>
-          <p className="text-muted-foreground">Understanding the key differences</p>
+          <h2 className="text-3xl font-bold mb-4">{t.comparison.title}</h2>
+          <p className="text-muted-foreground">{t.comparison.subtitle}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <FlashCard className="relative">
             <div className="flex items-center mb-4">
               <XCircle className="w-8 h-8 text-muted-foreground mr-3" />
-              <h3 className="text-xl font-semibold">Normal Aadhaar-Linked Account</h3>
+              <h3 className="text-xl font-semibold">{t.comparison.normalAccount}</h3>
             </div>
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-start">
                 <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                Just identity verification
+                {t.comparison.normalFeature1}
               </li>
               <li className="flex items-start">
                 <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                Manual benefit processing
+                {t.comparison.normalFeature2}
               </li>
               <li className="flex items-start">
                 <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                Longer waiting times
+                {t.comparison.normalFeature3}
               </li>
               <li className="flex items-start">
                 <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                Risk of intermediaries
+                {t.comparison.normalFeature4}
               </li>
             </ul>
           </FlashCard>
@@ -121,24 +122,24 @@ const Index = () => {
           <FlashCard variant="success" delay={200}>
             <div className="flex items-center mb-4">
               <CheckCircle className="w-8 h-8 mr-3" />
-              <h3 className="text-xl font-semibold">DBT-Enabled Account</h3>
+              <h3 className="text-xl font-semibold">{t.comparison.dbtAccount}</h3>
             </div>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <CheckCircle className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                Direct benefit transfers
+                {t.comparison.dbtFeature1}
               </li>
               <li className="flex items-start">
                 <CheckCircle className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                Instant processing
+                {t.comparison.dbtFeature2}
               </li>
               <li className="flex items-start">
                 <CheckCircle className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                No middleman involved
+                {t.comparison.dbtFeature3}
               </li>
               <li className="flex items-start">
                 <CheckCircle className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                Complete transparency
+                {t.comparison.dbtFeature4}
               </li>
             </ul>
           </FlashCard>
@@ -149,31 +150,31 @@ const Index = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Available Scholarships Through DBT</h2>
-            <p className="text-muted-foreground">Find scholarships matching your profile</p>
+            <h2 className="text-3xl font-bold mb-4">{t.scholarships.title}</h2>
+            <p className="text-muted-foreground">{t.scholarships.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
             {[
               { 
-                category: "School Students", 
+                category: t.scholarships.schoolStudents, 
                 amount: "₹10,000 - ₹50,000", 
                 schemes: ["PM YASASVI", "Merit Scholarship", "SC/ST Scholarship"],
-                eligibility: "Class 9-12 students with good academic record",
+                eligibility: t.scholarships.schoolEligibility,
                 link: "https://scholarships.gov.in/"
               },
               { 
-                category: "College Students", 
+                category: t.scholarships.collegeStudents, 
                 amount: "₹25,000 - ₹1,00,000", 
                 schemes: ["Post Matric Scholarship", "Merit-cum-Means", "Professional Course"],
-                eligibility: "Undergraduate and postgraduate students",
+                eligibility: t.scholarships.collegeEligibility,
                 link: "https://www.scholarships.reliancefoundation.org/UG_Scholarship.aspx"
               },
               { 
-                category: "Research Students", 
+                category: t.scholarships.researchStudents, 
                 amount: "₹50,000 - ₹2,00,000", 
                 schemes: ["JRF", "SRF", "Research Fellowship"],
-                eligibility: "PhD and research scholars with NET/GATE",
+                eligibility: t.scholarships.researchEligibility,
                 link: "https://www.primeministerfellowshipscheme.in/"
               }
             ].map((scholarship, index) => (
@@ -194,7 +195,7 @@ const Index = () => {
                     size="sm" 
                     className="w-full bg-white/20 border-white/30 text-white hover:bg-white/30"
                   >
-                    Check Eligibility
+                    {t.common.checkEligibility}
                   </Button>
                 </a>
               </FlashCard>
@@ -207,16 +208,16 @@ const Index = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">All Benefits You Can Receive Through DBT</h2>
-            <p className="text-muted-foreground">Complete list of government schemes and subsidies</p>
+            <h2 className="text-3xl font-bold mb-4">{t.benefits.title}</h2>
+            <p className="text-muted-foreground">{t.benefits.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { icon: Users, title: "Scholarships", desc: "Educational support directly to your account", amount: "₹10K-₹2L" },
-              { icon: Shield, title: "LPG Subsidies", desc: "Cooking gas subsidies automatically credited", amount: "₹200/cylinder" },
-              { icon: TrendingUp, title: "MGNREGA", desc: "Employment guarantee scheme payments", amount: "₹300/day" },
-              { icon: Star, title: "Pensions", desc: "Social security and pension benefits", amount: "₹3K-₹5K/month" }
+              { icon: Users, title: t.benefits.scholarships, desc: t.benefits.scholarshipsDesc, amount: "₹10K-₹2L" },
+              { icon: Shield, title: t.benefits.lpgSubsidies, desc: t.benefits.lpgSubsidiesDesc, amount: "₹200/cylinder" },
+              { icon: TrendingUp, title: t.benefits.mgnrega, desc: t.benefits.mgnregaDesc, amount: "₹300/day" },
+              { icon: Star, title: t.benefits.pensions, desc: t.benefits.pensionsDesc, amount: "₹3K-₹5K/month" }
             ].map((benefit, index) => (
               <FlashCard key={index} delay={index * 100} className="text-center">
                 <benefit.icon className="w-12 h-12 mx-auto mb-4 text-primary" />
@@ -232,8 +233,8 @@ const Index = () => {
       {/* Step-by-Step Guide */}
       <section className="py-16 bg-muted/30 container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Quick Guide: Enable DBT in 3 Easy Ways</h2>
-          <p className="text-muted-foreground">Choose the method that works best for you</p>
+          <h2 className="text-3xl font-bold mb-4">{t.guide.title}</h2>
+          <p className="text-muted-foreground">{t.guide.subtitle}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-8">
@@ -245,7 +246,7 @@ const Index = () => {
                 <div className="text-xs bg-white/30 px-2 py-1 rounded">30-45 min</div>
               </div>
             </div>
-            <h3 className="text-xl font-semibold mb-4">Visit Bank Branch</h3>
+            <h3 className="text-xl font-semibold mb-4">{t.guide.bankBranch}</h3>
             <div className="space-y-3 text-sm mb-4">
               <div className="flex items-start">
                 <span className="bg-white/30 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">1</span>
@@ -277,7 +278,7 @@ const Index = () => {
                 <div className="text-xs bg-white/30 px-2 py-1 rounded">10-15 min</div>
               </div>
             </div>
-            <h3 className="text-xl font-semibold mb-4">Online Banking</h3>
+            <h3 className="text-xl font-semibold mb-4">{t.guide.onlineBanking}</h3>
             <div className="space-y-3 text-sm mb-4">
               <div className="flex items-start">
                 <span className="bg-white/30 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">1</span>
@@ -309,7 +310,7 @@ const Index = () => {
                 <div className="text-xs bg-white/30 px-2 py-1 rounded">5-10 min</div>
               </div>
             </div>
-            <h3 className="text-xl font-semibold mb-4">Mobile Banking</h3>
+            <h3 className="text-xl font-semibold mb-4">{t.guide.mobileBanking}</h3>
             <div className="space-y-3 text-sm mb-4">
               <div className="flex items-start">
                 <span className="bg-white/30 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">1</span>
@@ -337,7 +338,7 @@ const Index = () => {
         <div className="text-center">
           <Link to="/complete-guide">
             <Button size="lg" variant="outline" className="bg-primary/10 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              View Complete Step-by-Step Guide
+              {t.guide.viewCompleteGuide}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
@@ -348,8 +349,8 @@ const Index = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Success Stories</h2>
-            <p className="text-muted-foreground">Real people, real benefits</p>
+            <h2 className="text-3xl font-bold mb-4">{t.successStories.title}</h2>
+            <p className="text-muted-foreground">{t.successStories.subtitle}</p>
           </div>
 
           <div className="max-w-2xl mx-auto">
@@ -393,26 +394,25 @@ const Index = () => {
       <section className="py-16 container mx-auto px-4">
         <FlashCard variant="gradient" className="text-center max-w-3xl mx-auto">
           <Zap className="w-16 h-16 mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl font-bold mb-4">{t.cta.title}</h2>
           <p className="text-lg mb-8 opacity-90">
-            Take our interactive quiz to test your knowledge, check your DBT status, 
-            or get help from our support team.
+            {t.cta.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/quiz">
               <Button size="lg" variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
-                Start Quiz
+                {t.common.startQuiz}
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link to="/dbt-status">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Check Status
+                {t.hero.checkStatus}
               </Button>
             </Link>
             <Link to="/helpline">
               <Button size="lg" variant="outline" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
-                Get Help
+                {t.nav.helpline}
               </Button>
             </Link>
           </div>

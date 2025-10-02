@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import FlashCard from "@/components/FlashCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { CheckCircle, XCircle, RotateCcw, PlayCircle, Trophy, Star, Target, BookOpen, Video, Building2, Monitor, Smartphone, ArrowLeft } from "lucide-react";
 
 interface Question {
@@ -111,6 +112,7 @@ const questions: Question[] = [
 ];
 
 const Quiz = () => {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<'selection' | 'quiz' | 'videos'>('selection');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -228,7 +230,7 @@ const Quiz = () => {
                   onClick={() => setMode('quiz')}
                 >
                   <PlayCircle className="w-5 h-5 mr-2" />
-                  Start Quiz
+                  {t.common.startQuiz}
                 </Button>
               </div>
             </FlashCard>
@@ -267,7 +269,7 @@ const Quiz = () => {
                   onClick={() => setMode('videos')}
                 >
                   <Video className="w-5 h-5 mr-2" />
-                  Watch Videos
+                  {t.common.videoTutorials}
                 </Button>
               </div>
             </FlashCard>

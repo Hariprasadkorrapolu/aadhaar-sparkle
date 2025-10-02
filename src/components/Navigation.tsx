@@ -1,33 +1,37 @@
 import { NavLink } from "react-router-dom";
 import { Home, HelpCircle, CheckCircle, Phone, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 const Navigation = () => {
+  const { t } = useLanguage();
+  
   const navItems = [
     {
       to: "/",
       icon: Home,
-      label: "Home",
+      label: t.nav.home,
     },
     {
       to: "/complete-guide",
       icon: BookOpen,
-      label: "Complete Guide",
+      label: t.nav.completeGuide,
     },
     {
       to: "/quiz",
       icon: HelpCircle,
-      label: "Quiz",
+      label: t.nav.quiz,
     },
     {
       to: "/dbt-status",
       icon: CheckCircle,
-      label: "DBT Status",
+      label: t.nav.dbtStatus,
     },
     {
       to: "/helpline",
       icon: Phone,
-      label: "Helpline",
+      label: t.nav.helpline,
     },
   ];
 
@@ -35,12 +39,15 @@ const Navigation = () => {
     <nav className="bg-card/95 backdrop-blur-sm border-b sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A+</span>
+          {/* Language Selector and Logo */}
+          <div className="flex items-center space-x-4">
+            <LanguageSelector />
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">A+</span>
+              </div>
+              <span className="font-bold text-xl text-primary hidden lg:block">{t.nav.appName}</span>
             </div>
-            <span className="font-bold text-xl text-primary">Aadhaar Awareness</span>
           </div>
 
           {/* Navigation Links */}
