@@ -159,19 +159,22 @@ const Index = () => {
                 category: "School Students", 
                 amount: "₹10,000 - ₹50,000", 
                 schemes: ["PM YASASVI", "Merit Scholarship", "SC/ST Scholarship"],
-                eligibility: "Class 9-12 students with good academic record"
+                eligibility: "Class 9-12 students with good academic record",
+                link: "https://scholarships.gov.in/"
               },
               { 
                 category: "College Students", 
                 amount: "₹25,000 - ₹1,00,000", 
                 schemes: ["Post Matric Scholarship", "Merit-cum-Means", "Professional Course"],
-                eligibility: "Undergraduate and postgraduate students"
+                eligibility: "Undergraduate and postgraduate students",
+                link: "https://www.scholarships.reliancefoundation.org/UG_Scholarship.aspx"
               },
               { 
                 category: "Research Students", 
                 amount: "₹50,000 - ₹2,00,000", 
                 schemes: ["JRF", "SRF", "Research Fellowship"],
-                eligibility: "PhD and research scholars with NET/GATE"
+                eligibility: "PhD and research scholars with NET/GATE",
+                link: "https://www.primeministerfellowshipscheme.in/"
               }
             ].map((scholarship, index) => (
               <FlashCard key={index} delay={index * 100} variant="success">
@@ -185,13 +188,15 @@ const Index = () => {
                   ))}
                 </div>
                 <p className="text-sm opacity-90">{scholarship.eligibility}</p>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="mt-4 w-full bg-white/20 border-white/30 text-white hover:bg-white/30"
-                >
-                  Check Eligibility
-                </Button>
+                <a href={scholarship.link} target="_blank" rel="noopener noreferrer" className="block mt-4">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full bg-white/20 border-white/30 text-white hover:bg-white/30"
+                  >
+                    Check Eligibility
+                  </Button>
+                </a>
               </FlashCard>
             ))}
           </div>
